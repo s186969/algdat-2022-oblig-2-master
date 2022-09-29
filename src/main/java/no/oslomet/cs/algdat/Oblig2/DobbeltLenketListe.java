@@ -40,6 +40,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 1
     public DobbeltLenketListe(T[] a) {
         throw new UnsupportedOperationException();
     }
@@ -48,9 +49,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 1
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return antall;
     }
 
     @Override
