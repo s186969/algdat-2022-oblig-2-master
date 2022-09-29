@@ -71,9 +71,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 4
     @Override
-    public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+    public boolean inneholder(T verdi)
+    {
+        return indeksTil(verdi) != -1;
     }
 
     @Override
@@ -81,9 +83,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 4
     @Override
-    public int indeksTil(T verdi) {
+    public int indeksTil(T verdi){
         throw new UnsupportedOperationException();
+
+/*        for (int i = 0; i < antall; i++)
+        {
+            if (a[i].equals(verdi)) return i;
+        }
+        return -1;*/
     }
 
     @Override
