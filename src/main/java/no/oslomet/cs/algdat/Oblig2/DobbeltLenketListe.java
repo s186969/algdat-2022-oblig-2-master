@@ -7,6 +7,7 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -88,9 +89,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //  Oppgave 3a)
+    //  Mye av oppgaven kommer fra 3.3.3
+    private Node<T> finnNode(int indeks) {
+        Node<T> p;
+
+        //  Leter etter node dersom indeksen er mindre enn antall / 2
+        if (indeks < antall / 2) {
+            p = hode;
+
+            //Starter fra hode og øker mot høyre
+            for (int i = 0; i < indeks; i++) {
+                p = p.neste;
+            }
+
+        //  Leter etter node dersom indeksen er større enn antall / 2
+        } else {
+            p = hale;
+
+            //  Starter fra hale og minker mot venstre
+            for (int i = antall - 1; i < indeks; i--) {
+                p = p.forrige;
+            }
+        }
+        return p;
+    }
+
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Desverre en helt lik kopi
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+
+        //  indeksKontroll sjekker om indeks er lovlig
+        //  Når det er oppgitt false innebærer det at det ikke er tilatt at "indeks" er lik "antall"
+        indeksKontroll(indeks, false);
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -98,9 +131,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Mye lik som koden derfra og.
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+
+        //  Feilmelding hvis det er oppgitt nullverdier
+        Objects.requireNonNull(nyverdi, "Det er ikke tillatt med null-verdier. Prøv igjen.");
+
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, false);
+
+        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
+        //  Den gamle verdien returneres.
+        Node<T> p = finnNode(indeks);
+        T gammelVerdi = p.verdi;
+
+        p.verdi = nyverdi;
+        return gammelVerdi;
     }
 
     @Override
