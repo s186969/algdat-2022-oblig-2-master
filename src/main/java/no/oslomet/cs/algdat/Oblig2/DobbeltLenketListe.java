@@ -7,6 +7,7 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -38,25 +39,37 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
+    //Oppgave 1
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+
     }
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 1
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return antall;
     }
-
+    //oppgave 1
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        if(hode == hale){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Oppgave 2b)
@@ -78,9 +91,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return indeksTil(verdi) != -1;
     }
 
+    //  Oppgave 3a)
+    //  Mye av oppgaven kommer fra 3.3.3
+    private Node<T> finnNode(int indeks) {
+        Node<T> p;
+
+        //  Leter etter node dersom indeksen er mindre enn antall / 2
+        if (indeks < antall / 2) {
+            p = hode;
+
+            //Starter fra hode og øker mot høyre
+            for (int i = 0; i < indeks; i++) {
+                p = p.neste;
+            }
+
+        //  Leter etter node dersom indeksen er større enn antall / 2
+        } else {
+            p = hale;
+
+            //  Starter fra hale og minker mot venstre
+            for (int i = antall - 1; i < indeks; i--) {
+                p = p.forrige;
+            }
+        }
+        return p;
+    }
+
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Desverre en helt lik kopi
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+
+        //  indeksKontroll sjekker om indeks er lovlig
+        //  Når det er oppgitt false innebærer det at det ikke er tilatt at "indeks" er lik "antall"
+        indeksKontroll(indeks, false);
+        return finnNode(indeks).verdi;
     }
 
     //Oppgave 4
@@ -95,9 +140,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return -1;*/
     }
 
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Mye lik som koden derfra og.
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+
+        //  Feilmelding hvis det er oppgitt nullverdier
+        Objects.requireNonNull(nyverdi, "Det er ikke tillatt med null-verdier. Prøv igjen.");
+
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, false);
+
+        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
+        //  Den gamle verdien returneres.
+        Node<T> p = finnNode(indeks);
+        T gammelVerdi = p.verdi;
+
+        p.verdi = nyverdi;
+        return gammelVerdi;
     }
 
     @Override
@@ -188,6 +248,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new UnsupportedOperationException();
+    }
+
+    public static void main(String[] args){
+        //Oppgave 1
+        Liste<String> liste = new DobbeltLenketListe<>();
+        System.out.println(liste.antall() + " " + liste.tom());
     }
 
 } // class DobbeltLenketListe
