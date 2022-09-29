@@ -4,6 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -58,8 +59,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 2b)
     @Override
     public boolean leggInn(T verdi) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -103,13 +106,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 2 a)
     @Override
-    public String toString() {
-        throw new UnsupportedOperationException();
+    public String toString() { //oppgave 2
+        //i hjelpemetoden er antall definert som antall noder i listen.
+        //hvis listen er tom, returnerer en tom liste.
+        if (antall == 0) return "[]";
+
+        StringBuilder s = new StringBuilder().append("[");
+        //starter å append verdier i listen fra starten (hode) mot sluten for alle nodene som inneholder verdier
+            for (Node<T> p = hode; p != null; p = p.neste) {
+                s.append(p.verdi.toString() + ", ");
+            }
+        s.append(']');
+        return s.toString();
+       // throw new UnsupportedOperationException();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        if (antall == 0) return "[]"; //i hjelpemetoden er antall definert som antall noder i listen.
+
+        StringBuilder s = new StringBuilder().append("[");
+            for (Node<T> p = hale; p != null; p = p.forrige) {
+            s.append(p.verdi.toString());
+            }
+        s.append(']');
+
+        return s.toString();
+       // throw new UnsupportedOperationException();
     }
 
     @Override
