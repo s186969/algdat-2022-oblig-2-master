@@ -7,6 +7,7 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -45,9 +46,40 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //Oppgave 1
-    public DobbeltLenketListe(T[] a) {
-        //throw new UnsupportedOperationException();
+    /*● Stoppes en null-tabell? Kastes i så fall en NullPointerException?
+            ● Blir det korrekt hvis parametertabellen inneholder en eller flere null-verdier?
+            ● Blir det korrekt hvis parametertabellen er tom (har lengde 0)?
+            ● Blir det korrekt hvis parametertabellen kun har null-verdier?
+            ● Blir det korrekt hvis parametertabellen har kun én verdi som ikke er null?
+            ● Blir antallet satt korrekt?
+            ● Får verdiene i listen samme rekkefølge som i tabellen?*/
+    public DobbeltLenketListe(T[] a) { //skal håndtere tomme lister
+        Objects.requireNonNull(a,"Tabellen a er null!");
+        // Sjekk om det er en tom liste og kast feilmld?
+        this.hode = null;
+        this.hale = null;
+        Node current;
+        for(int i=0;i<a.length;i++) {
+            if (a[i] != null) {
+                current = new Node(a[i]);
+                hode = current;
+                this.antall += 1;
+                break;
+            }
+        }
 
+        Node tmp = null;
+        current = hode;
+        for(int i=1;i<a.length;i++){
+            if (a[i] != null) {
+                current.neste = new Node(a[i]);
+                current.forrige = tmp;
+                tmp = current;
+                current = current.neste;
+                hale = current;
+                this.antall += 1;
+            }
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -195,7 +227,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public static void main(String[] args){
         //Oppgave 1
-        Liste<String> liste = new DobbeltLenketListe<>();
+        //Liste<String> liste = new DobbeltLenketListe<>();
+        //System.out.println(liste.antall() + " " + liste.tom());
+        System.out.println();
+        String[] s = {"Ole", null, "Per", "Kari", null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
         System.out.println(liste.antall() + " " + liste.tom());
     }
 
