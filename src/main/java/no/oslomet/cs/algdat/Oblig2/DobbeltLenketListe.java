@@ -7,9 +7,11 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
+
     /**
      * Node class
      *
@@ -36,58 +38,157 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    public DobbeltLenketListe() { // definerer atributene over
-      // throw new UnsupportedOperationException();
+    public DobbeltLenketListe() {
+        //throw new UnsupportedOperationException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
-    public DobbeltLenketListe(T[] a) {
-        //throw new UnsupportedOperationException();
+    //Oppgave 1
+    /*● Stoppes en null-tabell? Kastes i så fall en NullPointerException?
+            ● Blir det korrekt hvis parametertabellen inneholder en eller flere null-verdier?
+            ● Blir det korrekt hvis parametertabellen er tom (har lengde 0)?
+            ● Blir det korrekt hvis parametertabellen kun har null-verdier?
+            ● Blir det korrekt hvis parametertabellen har kun én verdi som ikke er null?
+            ● Blir antallet satt korrekt?
+            ● Får verdiene i listen samme rekkefølge som i tabellen?*/
+    public DobbeltLenketListe(T[] a) { //skal håndtere tomme lister
+        Objects.requireNonNull(a,"Tabellen a er null!");
+        // Sjekk om det er en tom liste og kast feilmld?
+        this.hode = null;
+        this.hale = null;
+        Node current;
+        for(int i=0;i<a.length;i++) {
+            if (a[i] != null) {
+                current = new Node(a[i]);
+                hode = current;
+                this.antall += 1;
+                break;
+            }
+        }
+
+        Node tmp = null;
+        current = hode;
+        for(int i=1;i<a.length;i++){
+            if (a[i] != null) {
+                current.neste = new Node(a[i]);
+                current.forrige = tmp;
+                tmp = current;
+                current = current.neste;
+                hale = current;
+                this.antall += 1;
+            }
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
     }
 
+    //Oppgave 1
     @Override
     public int antall() {
-           throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return antall;
     }
-
+    //oppgave 1
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        if(hode == hale){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Oppgave 2b)
     @Override
     public boolean leggInn(T verdi) {
+
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        //throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
+    //Oppgave 4
     @Override
-    public boolean inneholder(T verdi) {
-       throw new UnsupportedOperationException();
+    public boolean inneholder(T verdi)
+    {
+        return indeksTil(verdi) != -1;
     }
 
+    //  Oppgave 3a)
+    //  Mye av oppgaven kommer fra 3.3.3
+    private Node<T> finnNode(int indeks) {
+        Node<T> p;
+
+        //  Leter etter node dersom indeksen er mindre enn antall / 2
+        if (indeks < antall / 2) {
+            p = hode;
+
+            //Starter fra hode og øker mot høyre
+            for (int i = 0; i < indeks; i++) {
+                p = p.neste;
+            }
+
+            //  Leter etter node dersom indeksen er større enn antall / 2
+        } else {
+            p = hale;
+
+            //  Starter fra hale og minker mot venstre
+            for (int i = antall - 1; i < indeks; i--) {
+                p = p.forrige;
+            }
+        }
+        return p;
+    }
+
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Desverre en helt lik kopi
     @Override
     public T hent(int indeks) {
 
-        throw new UnsupportedOperationException();
+        //  indeksKontroll sjekker om indeks er lovlig
+        //  Når det er oppgitt false innebærer det at det ikke er tilatt at "indeks" er lik "antall"
+        indeksKontroll(indeks, false);
+        return finnNode(indeks).verdi;
     }
 
+    //Oppgave 4
     @Override
-    public int indeksTil(T verdi) {
-       throw new UnsupportedOperationException();
+    public int indeksTil(T verdi){
+        throw new UnsupportedOperationException();
+
+/*        for (int i = 0; i < antall; i++)
+        {
+            if (a[i].equals(verdi)) return i;
+        }
+        return -1;*/
     }
 
+    //  Tilhører oppgave 3a)
+    //  Se Programkode 3.3.3 a). Mye lik som koden derfra og.
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+
+        //  Feilmelding hvis det er oppgitt nullverdier
+        Objects.requireNonNull(nyverdi, "Det er ikke tillatt med null-verdier. Prøv igjen.");
+
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, false);
+
+        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
+        //  Den gamle verdien returneres.
+        Node<T> p = finnNode(indeks);
+        T gammelVerdi = p.verdi;
+
+        p.verdi = nyverdi;
+        return gammelVerdi;
     }
 
     @Override
@@ -104,7 +205,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void nullstill() {
         throw new UnsupportedOperationException();
     }
-
     //Oppgave 2 a)
     @Override
     public String toString() { //oppgave 2
@@ -181,6 +281,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    public static void main(String[] args){
+        //Oppgave 1
+        //Liste<String> liste = new DobbeltLenketListe<>();
+        //System.out.println(liste.antall() + " " + liste.tom());
+        System.out.println();
+        String[] s = {"Ole", null, "Per", "Kari", null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
+        System.out.println(liste.antall() + " " + liste.tom());
+    }
+
 } // class DobbeltLenketListe
-
-
