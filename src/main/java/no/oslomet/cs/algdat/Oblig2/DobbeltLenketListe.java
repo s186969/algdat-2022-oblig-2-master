@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
-
     /**
      * Node class
      *
@@ -37,12 +36,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+    public DobbeltLenketListe() { // definerer atributene over
+      // throw new UnsupportedOperationException();
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -51,7 +50,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+           throw new UnsupportedOperationException();
     }
 
     @Override
@@ -62,28 +61,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 2b)
     @Override
     public boolean leggInn(T verdi) {
-
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+       throw new UnsupportedOperationException();
     }
 
     @Override
     public T hent(int indeks) {
+
         throw new UnsupportedOperationException();
     }
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+       throw new UnsupportedOperationException();
     }
 
     @Override
@@ -113,10 +112,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //hvis listen er tom, returnerer en tom liste.
         if (antall == 0) return "[]";
 
-        StringBuilder s = new StringBuilder().append("[");
+        StringBuilder s = new StringBuilder();
+        s.append("[");
         //starter å append verdier i listen fra starten (hode) mot sluten for alle nodene som inneholder verdier
             for (Node<T> p = hode; p != null; p = p.neste) {
-                s.append(p.verdi.toString() + ", ");
+                s.append(p.verdi).append(", ");
             }
         s.append(']');
         return s.toString();
@@ -128,7 +128,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         StringBuilder s = new StringBuilder().append("[");
             for (Node<T> p = hale; p != null; p = p.forrige) {
-            s.append(p.verdi.toString());
+                s.append(p.verdi).append(", ");
             }
         s.append(']');
 
