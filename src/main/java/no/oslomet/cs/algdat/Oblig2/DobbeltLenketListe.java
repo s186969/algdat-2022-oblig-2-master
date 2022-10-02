@@ -229,12 +229,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         throw new UnsupportedOperationException();
     }
-
+//Oppgave 7
+    //Nesten identisk kode som oppgave 2, Avsnitt 3.3.2.
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+
+        Node<T> p = hode;
+        Node <T> q;
+
+        while (p != null)
+        {
+            q = p.neste;
+            p.neste = null;
+            p.verdi = null;
+            p = q;
+        }
+
+        hode = hale = null;
+        antall = 0;
+        endringer ++;
+        //throw new UnsupportedOperationException();
     }
-    //Oppgave 2 a)
+    //Oppgave 2 a)1.
     @Override
     public String toString() { //oppgave 2
         //i hjelpemetoden er antall definert som antall noder i listen.
@@ -256,7 +272,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
        // throw new UnsupportedOperationException();
     }
-
+    //Oppgave 2 a).2
     public String omvendtString() {
         if (antall == 0){
             return "[]"; //i hjelpemetoden er antall definert som antall noder i listen.
