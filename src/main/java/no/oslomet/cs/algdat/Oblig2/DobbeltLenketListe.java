@@ -74,8 +74,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (til > antall)
             throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
 
+        //  Obs! Her sier oppgaveteksten at det skal stå "IndexOutOfBoundsException", men testen feiler hvis
+        //  det ikke står "IllegalArgumentException".
         if (fra > til)
-            throw new IndexOutOfBoundsException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -172,7 +174,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             p = hale;
 
             //  Starter fra hale og minker mot venstre
-            for (int i = antall - 1; i < indeks; i--) {
+            for (int i = antall - 1; i > indeks; i--) {
                 p = p.forrige;
             }
         }
