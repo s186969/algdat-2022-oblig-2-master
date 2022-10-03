@@ -39,70 +39,49 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        //throw new UnsupportedOperationException();
         hode = hale = null;
         antall = 0;
         endringer = 0;
     }
 
     //Oppgave 1
-    /*● Stoppes en null-tabell? Kastes i så fall en NullPointerException?
-            ● Blir det korrekt hvis parametertabellen inneholder en eller flere null-verdier?
-            ● Blir det korrekt hvis parametertabellen er tom (har lengde 0)?
-            ● Blir det korrekt hvis parametertabellen kun har null-verdier?
-            ● Blir det korrekt hvis parametertabellen har kun én verdi som ikke er null?
-            ● Blir antallet satt korrekt?
-            ● Får verdiene i listen samme rekkefølge som i tabellen?*/
-    public DobbeltLenketListe(T[] a) { //skal håndtere tomme lister
-        Objects.requireNonNull(a,"Tabellen a er null!");
-        // Sjekk om det er en tom liste og kast feilmld?
-        this.hode = null;
-        this.hale = null;
-        Node current;
-        for(int i=0;i<a.length;i++) {
+    public DobbeltLenketListe(T[] a) {
+        new DobbeltLenketListe(); //oppretter et objekt med konstruktøren
+        Objects.requireNonNull(a,"Tabellen a er null!"); //sjekker om tabellen er null
+        this.hode = new Node(null); //oppretter hale/hode som utgangspunkt for å bygge videre
+        this.hale = hode;
+
+        for(int i=0;i<a.length;i++) { //fylle på en node så lenge verdien i arrayet ikke er null, hopper over null-verdier
             if (a[i] != null) {
-                current = new Node(a[i]);
-                hode = current;
-                this.antall += 1;
-                break;
+                hale.neste = new Node(a[i]);
+                hale = hale.neste;
+                antall++;
             }
         }
-
-        Node tmp = null;
-        current = hode;
-        for(int i=1;i<a.length;i++){
-            if (a[i] != null) {
-                current.neste = new Node(a[i]);
-                current.forrige = tmp;
-                tmp = current;
-                current = current.neste;
-                hale = current;
-                this.antall += 1;
-            }
+        if(antall == 0){ //hvis antallet noder fortsatt er 0 må hode = hale, som er null
+            hode = hale;
+        } else{
+            hode = hode.neste=null; //hvis det er bygget på noder må vi sørge for at hode ikke lengre er null-verdien
+            //hode.forrige = null;
         }
     }
-
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
     }
-
     //Oppgave 1
     @Override
     public int antall() {
-        //throw new UnsupportedOperationException();
         return antall;
     }
     //oppgave 1
     @Override
     public boolean tom() {
-        //throw new UnsupportedOperationException();
         if(hode == hale){
             return true;
         } else {
             return false;
         }
     }
-
     //Oppgave 2b)
 
     //Sjekkliste for boolean metoden leggInn(T verdi):
