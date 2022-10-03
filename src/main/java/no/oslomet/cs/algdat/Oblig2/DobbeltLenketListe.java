@@ -98,7 +98,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //oppgave 1
     @Override
     public boolean tom() {
-        if(hode == hale){
+        if(antall == 0){
             return true;
         } else {
             return false;
@@ -235,13 +235,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         throw new UnsupportedOperationException();
     }
-//Oppgave 7
+    //Oppgave 7
     //Nesten identisk kode som oppgave 2, Avsnitt 3.3.2.
 //Metoden skal «tømme» listen og nulle alt slik at
 //«søppeltømmeren» kan hente alt som ikke lenger brukes.
     @Override
     public void nullstill() {
-               Node<T> p = hode;
+        Node<T> p = hode;
         Node <T> q;
 //Start i hode og gå mot hale ved hjelpe pekeren neste. For hver node «nulles»
 //nodeverdien og alle nodens pekere. Til slutt settes både hode og hale til null, antall til 0
@@ -283,7 +283,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             s.append(']');
             return s.toString();
         }
-       // throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
     }
     //Oppgave 2 a)2.
     public String omvendtString() {
@@ -302,7 +302,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             return s.toString();
         }
-       // throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
     }
 
     //Oppgave 8 b)
@@ -356,9 +356,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Liste<String> liste = new DobbeltLenketListe<>();
         //System.out.println(liste.antall() + " " + liste.tom());
         System.out.println();
-       // String[] s = {"Ole", null, "Per", "Kari", null};
-       // Liste<String> liste = new DobbeltLenketListe<>(s);
-       // System.out.println(liste.antall() + " " + liste.tom());
+        // String[] s = {"Ole", null, "Per", "Kari", null};
+        // Liste<String> liste = new DobbeltLenketListe<>(s);
+        // System.out.println(liste.antall() + " " + liste.tom());
 
         //*********Oppgave 2**************
         System.out.println("*********Oppgave 2**************");
