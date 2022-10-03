@@ -65,9 +65,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hode.forrige = null; //hode.forrige = null;
         }
     }
-    //Oppgave 3 b)
+    //  Oppgave 3b)
+    //  Underliggende metode kommer fra 1.2.3
+    private static void fratilKontroll(int antall, int fra, int til) {
+        if (fra < 0)
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+
+        if (til > antall)
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
+
+        if (fra > til)
+            throw new IndexOutOfBoundsException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        fratilKontroll(antall, fra, til);
+
+        DobbeltLenketListe<T> liste = new DobbeltLenketListe<>();  // ny liste
+        Node<T> p = finnNode(fra);        // finner noden med indeks lik fra
+
+        for (int i = fra; i < til; i++) {
+            liste.leggInn(p.verdi);
+            p = p.neste;
+        }
+        return liste;
     }
     //Oppgave 1
     @Override
@@ -192,12 +213,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //  Ulovlig hvis oppgitt indeks er lik antall
         indeksKontroll(indeks, false);
 
-        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
-        //  Den gamle verdien returneres.
         Node<T> p = finnNode(indeks);
+        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
         T gammelVerdi = p.verdi;
-
         p.verdi = nyverdi;
+
+        //  Endringer økes med 1.
+        endringer++;
+
+        //  Den gamle verdien returneres.
         return gammelVerdi;
     }
     //Oppgave 6
@@ -362,6 +386,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // [1, 2, 3] [3, 2, 1]
         System.out.println("***********OPPGAVE 2 SLUTTER HER***********");
         //***********OPPGAVE 2 SLUTTER HER***********
+
     }
 
 } // class DobbeltLenketListe
