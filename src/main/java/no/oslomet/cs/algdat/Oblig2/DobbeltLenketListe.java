@@ -231,12 +231,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 //Oppgave 7
     //Nesten identisk kode som oppgave 2, Avsnitt 3.3.2.
+//Metoden skal «tømme» listen og nulle alt slik at
+//«søppeltømmeren» kan hente alt som ikke lenger brukes.
     @Override
     public void nullstill() {
-
-        Node<T> p = hode;
+               Node<T> p = hode;
         Node <T> q;
-
+//Start i hode og gå mot hale ved hjelpe pekeren neste. For hver node «nulles»
+//nodeverdien og alle nodens pekere. Til slutt settes både hode og hale til null, antall til 0
+//og endringer økes.
         while (p != null)
         {
             q = p.neste;
