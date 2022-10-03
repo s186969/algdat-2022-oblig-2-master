@@ -4,6 +4,8 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -172,7 +174,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 4
     @Override
     public int indeksTil(T verdi){
-        throw new UnsupportedOperationException();
+/*        throw new UnsupportedOperationException();*/
+
+        if (verdi == null){
+            return -1;
+        }
+
+        Node<T> q = hode;
+        int i = 0;
+        for (; i < antall; i++){
+            if (!verdi.equals(q.verdi)){
+                q = q.neste;
+            } else{
+                return i;
+            }
+        }
+        return -1;
 
 /*        for (int i = 0; i < antall; i++)
         {
@@ -362,6 +379,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // [1, 2, 3] [3, 2, 1]
         System.out.println("***********OPPGAVE 2 SLUTTER HER***********");
         //***********OPPGAVE 2 SLUTTER HER***********
+
+
+        //*********Oppgave 4**************
+        Integer[] liste40 = {45, 35, 764, 3, 6};
+        DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
+        System.out.println(liste41);
+        System.out.println(liste41.indeksTil(6));
     }
+
 
 } // class DobbeltLenketListe
