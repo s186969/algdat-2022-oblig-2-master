@@ -4,8 +4,6 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -67,9 +65,32 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hode.forrige = null; //hode.forrige = null;
         }
     }
-    //Oppgave 3 b)
+    //  Oppgave 3b)
+    //  Underliggende metode kommer fra 1.2.3
+    private static void fratilKontroll(int antall, int fra, int til) {
+        if (fra < 0)
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+
+        if (til > antall)
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
+
+        //  Obs! Her sier oppgaveteksten at det skal stå "IndexOutOfBoundsException", men testen feiler hvis
+        //  det ikke står "IllegalArgumentException".
+        if (fra > til)
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        fratilKontroll(antall, fra, til);
+
+        DobbeltLenketListe<T> liste = new DobbeltLenketListe<>();  // ny liste
+        Node<T> p = finnNode(fra);        // finner noden med indeks lik fra
+
+        for (int i = fra; i < til; i++) {
+            liste.leggInn(p.verdi);
+            p = p.neste;
+        }
+        return liste;
     }
     //Oppgave 1
     @Override
@@ -153,7 +174,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             p = hale;
 
             //  Starter fra hale og minker mot venstre
-            for (int i = antall - 1; i < indeks; i--) {
+            for (int i = antall - 1; i > indeks; i--) {
                 p = p.forrige;
             }
         }
@@ -174,22 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 4
     @Override
     public int indeksTil(T verdi){
-/*        throw new UnsupportedOperationException();*/
-
-        if (verdi == null){
-            return -1;
-        }
-
-        Node<T> q = hode;
-        int i = 0;
-        for (; i < antall; i++){
-            if (!verdi.equals(q.verdi)){
-                q = q.neste;
-            } else{
-                return i;
-            }
-        }
-        return -1;
+        throw new UnsupportedOperationException();
 
 /*        for (int i = 0; i < antall; i++)
         {
@@ -209,12 +215,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //  Ulovlig hvis oppgitt indeks er lik antall
         indeksKontroll(indeks, false);
 
-        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
-        //  Den gamle verdien returneres.
         Node<T> p = finnNode(indeks);
+        //  Erstatter eksisterende verdi på indeks med verdien nyverdi.
         T gammelVerdi = p.verdi;
-
         p.verdi = nyverdi;
+
+        //  Endringer økes med 1.
+        endringer++;
+
+        //  Den gamle verdien returneres.
         return gammelVerdi;
     }
     //Oppgave 6
@@ -380,13 +389,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println("***********OPPGAVE 2 SLUTTER HER***********");
         //***********OPPGAVE 2 SLUTTER HER***********
 
-
-        //*********Oppgave 4**************
-        Integer[] liste40 = {45, 35, 764, 3, 6};
-        DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
-        System.out.println(liste41);
-        System.out.println(liste41.indeksTil(6));
     }
-
 
 } // class DobbeltLenketListe
