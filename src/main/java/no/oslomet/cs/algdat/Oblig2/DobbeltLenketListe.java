@@ -241,11 +241,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    //Oppgave 6
+    //  Oppgave 6
+    //  Relevant kode befinner seg i 3.3.3 b)
+
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, false);
+
+        //  Hjelpevariabler
+        Node <T> p;
+        Node <T> q = finnNode(indeks - 1);
+
+        //  Hvis den første elementet skal fjernes
+        if (indeks == 0) {
+            p = hode;                           //  Temp-verdi
+            hode = hode.neste;                  //  Flytte hode til neste verdi
+            hode.forrige = null;                //  Nullstill
+
+        //  Hvis den siste elementet skal fjernes
+        } else if (indeks == antall - 1) {
+            p = hale;                           //  Temp-verdi
+            hale = hale.forrige;                //  Flytte hale til forrige verdi
+            hale.neste = null;                  //  Nullstill
+
+        //  Hvis en element mellom første og siste skal fjernes
+        } else {
+            p = q.neste;
+            q.neste = q.neste.neste;
+            q.neste.forrige = q;
+        }
+        endringer++;
+        antall--;
+        return p.verdi;
     }
+
     //Oppgave 7
     //Nesten identisk kode som oppgave 2, Avsnitt 3.3.2.
 //Metoden skal «tømme» listen og nulle alt slik at
