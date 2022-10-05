@@ -145,7 +145,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        //  Feilmelding hvis det er oppgitt nullverdier
+        Objects.requireNonNull(verdi, "Det er ikke tillatt med null-verdier!");
+
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, true);
+
+        //1) listen er tom,
+        if (tom()) {
+            Node<T> p = new Node<T>(verdi);
+            hode = hale = p;
+            p.forrige = null;
+            p.neste = null;
+
+        }
+        //2) verdien skal legges først,
+        else if (indeks == 0) {
+            Node<T> p = new Node<T>(verdi);
+            p.forrige = null;
+            p.neste = hode;
+            hode.forrige = p;
+            hode = p;
+        }
+        //3) verdien skal legges bakerst og
+        else if (indeks == antall) {
+            leggInn(verdi);
+            antall--; //metoden "leggInn" øker antallet, blir dobbel økning i denne metoden hvis jeg ikke tar bort denne.
+        }
+        //4) verdien skal legges mellom to andre verdier. Sørg for at neste- og forrige-pekere får korrekte
+        //verdier i alle noder. Spesielt skal forrige-peker i den første noden være null og neste-peker i
+        //den siste noden være null.*/
+        else {
+            Node<T> q = finnNode(indeks);
+            Node<T> p = new Node<T>(verdi);
+            Node<T> r = finnNode(indeks - 1);
+            p.neste = q;
+            p.forrige = r;
+            r.neste = p;
+            q.forrige = p;
+        }
+        antall++;
+        endringer++;
     }
 
     //Oppgave 4
@@ -333,6 +373,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             StringBuilder s = new StringBuilder();
             s.append("[");
+            //for (Node<T> n = hale; n != null; n = n.forrige) {
             for (Node<T> n = hale; n != null; n = n.forrige) {
                 s.append(n.verdi);
                 if (n.forrige != null) {
