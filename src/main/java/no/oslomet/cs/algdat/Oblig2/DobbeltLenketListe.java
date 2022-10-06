@@ -4,10 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -373,7 +370,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             StringBuilder s = new StringBuilder();
             s.append("[");
-            //for (Node<T> n = hale; n != null; n = n.forrige) {
             for (Node<T> n = hale; n != null; n = n.forrige) {
                 s.append(n.verdi);
                 if (n.forrige != null) {
@@ -397,6 +393,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Metoden boolean  hasNext() og konstruktøren public  DobbeltLenketListeIterator() i
+    //klassen DobbeltLenketListeIterator er ferdigkodet og skal ikke endres.
     private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
@@ -421,10 +419,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         public T next() {
             throw new UnsupportedOperationException();
         }
-
+        //Opggave 9
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+            if(tom()){
+                throw new IllegalStateException("Kan ikke fjerne fra en tom liste!");
+            }
+            else if (endringer != iteratorendringer){
+                throw new ConcurrentModificationException("Endringer er ulik iteratorendringer");
+            }
+            else {
+                fjernOK = false;
+            }
+            if(antall == 1){
+                hode = hale = null;
+            } else if (denne == null){
+                hale = null;
+                hale.forrige = hale;
+                hale.neste = null;
+            } else if(denne.forrige == hode){
+                hode = null;
+                hode.neste = hode;
+                hode.forrige = null;
+            } else{
+                denne.forrige.forrige.neste = denne;
+                denne.forrige = denne.forrige.forrige;
+            }
+            antall--;
+            iteratorendringer++;
         }
 
     } // class DobbeltLenketListeIterator
