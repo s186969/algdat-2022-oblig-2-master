@@ -4,10 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -145,7 +142,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        //  Feilmelding hvis det er oppgitt nullverdier
+        Objects.requireNonNull(verdi, "Det er ikke tillatt med null-verdier!");
+
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, true);
+
+        //1) listen er tom,
+        if (tom()) {
+            Node<T> p = new Node<T>(verdi);
+            hode = hale = p;
+            p.forrige = null;
+            p.neste = null;
+
+        }
+        //2) verdien skal legges først,
+        else if (indeks == 0) {
+            Node<T> p = new Node<T>(verdi);
+            p.forrige = null;
+            p.neste = hode;
+            hode.forrige = p;
+            hode = p;
+        }
+        //3) verdien skal legges bakerst og
+        else if (indeks == antall) {
+            leggInn(verdi);
+            antall--; //metoden "leggInn" øker antallet, blir dobbel økning i denne metoden hvis jeg ikke tar bort denne.
+        }
+        //4) verdien skal legges mellom to andre verdier. Sørg for at neste- og forrige-pekere får korrekte
+        //verdier i alle noder. Spesielt skal forrige-peker i den første noden være null og neste-peker i
+        //den siste noden være null.*/
+        else {
+            Node<T> q = finnNode(indeks);
+            Node<T> p = new Node<T>(verdi);
+            Node<T> r = finnNode(indeks - 1);
+            p.neste = q;
+            p.forrige = r;
+            r.neste = p;
+            q.forrige = p;
+        }
+        antall++;
+        endringer++;
     }
 
     //Oppgave 4
@@ -241,11 +278,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    //Oppgave 6
+    //  Oppgave 6
+    //  Relevant kode befinner seg i 3.3.3 b)
+
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        //  Ulovlig hvis oppgitt indeks er lik antall
+        indeksKontroll(indeks, false);
+
+        //  Hjelpevariabler
+        Node <T> p;
+        Node <T> q = finnNode(indeks - 1);
+
+        //  Hvis den første elementet skal fjernes
+        if (indeks == 0) {
+            p = hode;                           //  Temp-verdi
+            hode = hode.neste;                  //  Flytte hode til neste verdi
+            hode.forrige = null;                //  Nullstill
+
+        //  Hvis den siste elementet skal fjernes
+        } else if (indeks == antall - 1) {
+            p = hale;                           //  Temp-verdi
+            hale = hale.forrige;                //  Flytte hale til forrige verdi
+            hale.neste = null;                  //  Nullstill
+
+        //  Hvis en element mellom første og siste skal fjernes
+        } else {
+            p = q.neste;
+            q.neste = q.neste.neste;
+            q.neste.forrige = q;
+        }
+        endringer++;
+        antall--;
+        return p.verdi;
     }
+
     //Oppgave 7
     //Nesten identisk kode som oppgave 2, Avsnitt 3.3.2.
 //Metoden skal «tømme» listen og nulle alt slik at
@@ -326,6 +393,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    //Metoden boolean  hasNext() og konstruktøren public  DobbeltLenketListeIterator() i
+    //klassen DobbeltLenketListeIterator er ferdigkodet og skal ikke endres.
     private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
@@ -350,10 +419,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         public T next() {
             throw new UnsupportedOperationException();
         }
-
+        //Opggave 9
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+            if(tom()){
+                throw new IllegalStateException("Kan ikke fjerne fra en tom liste!");
+            }
+            else if (endringer != iteratorendringer){
+                throw new ConcurrentModificationException("Endringer er ulik iteratorendringer");
+            }
+            else {
+                fjernOK = false;
+            }
+            if(antall == 1){
+                hode = hale = null;
+            } else if (denne == null){
+                hale = null;
+                hale.forrige = hale;
+                hale.neste = null;
+            } else if(denne.forrige == hode){
+                hode = null;
+                hode.neste = hode;
+                hode.forrige = null;
+            } else{
+                denne.forrige.forrige.neste = denne;
+                denne.forrige = denne.forrige.forrige;
+            }
+            antall--;
+            iteratorendringer++;
         }
 
     } // class DobbeltLenketListeIterator
