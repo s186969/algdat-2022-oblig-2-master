@@ -195,6 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //  Oppgave 3a)
     //  Mye av oppgaven kommer fra 3.3.3
     private Node<T> finnNode(int indeks) {
+        //  Hjelpevariabel
         Node<T> p;
 
         //  Leter etter node dersom indeksen er mindre enn antall / 2
@@ -206,7 +207,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 p = p.neste;
             }
 
-            //  Leter etter node dersom indeksen er større enn antall / 2
+        //  Leter etter node dersom indeksen er større enn antall / 2
         } else {
             p = hale;
 
@@ -222,7 +223,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //  Se Programkode 3.3.3 a). Desverre en helt lik kopi
     @Override
     public T hent(int indeks) {
-
         //  indeksKontroll sjekker om indeks er lovlig
         //  Når det er oppgitt false innebærer det at det ikke er tilatt at "indeks" er lik "antall"
         indeksKontroll(indeks, false);
@@ -254,7 +254,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //  Se Programkode 3.3.3 a). Mye lik som koden derfra og.
     @Override
     public T oppdater(int indeks, T nyverdi) {
-
         //  Feilmelding hvis det er oppgitt nullverdier
         Objects.requireNonNull(nyverdi, "Det er ikke tillatt med null-verdier. Prøv igjen.");
 
@@ -283,41 +282,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Hjelpevariabler
         Node <T> p = hode;
 
-        for (int i = 0; i < antall - 1; i++) {
-            //  Hvis metoden skal fjerne det første elemenetet
-            if (verdi.equals(hode.verdi)) {
-
-                //  Hvis listen har bare ett element
-                if (hode.neste == null) {
-                    hode = null;                    //  Nullstill
-                    hale = null;                    //  Nullstill
-
-                //  Hvis listen har mer enn ett element
-                } else {
-                    hode = hode.neste;              //  Flytte hode til neste verdi
-                    hode.forrige = null;            //  Nullstill
-                }
-
-            //  Hvis metoden skal fjerne det siste elementet
-            } else if (verdi.equals(hale.verdi)) {
-                hale = hale.forrige;                //  Flytte hale til forrige verdi
-                hale.neste = null;                  //  Nullstill
-
-            //  Hvis metoden skal fjerne en verdi mellom det første og siste elementet
-            } else {
-                p.forrige.neste = p.neste;
-                p.neste.forrige = p.forrige;
+        while (p != null) {
+            if (p.verdi.equals(verdi)) {
+                break;
             }
-            endringer++;
-            antall--;
-            return true;
+            p = p.neste;
         }
-        return false;
+        if (p == null) {
+            return false;
+        }
+
+        //  Hvis metoden skal fjerne det første elementet
+        if (verdi.equals(hode.verdi)) {
+
+            //  Hvis listen har bare ett element
+            if (hode.neste == null) {
+                hode = null;                    //  Nullstill
+                hale = null;                    //  Nullstill
+
+            //  Hvis listen har mer enn ett element
+            } else {
+                hode = hode.neste;              //  Flytte hode til neste verdi
+                hode.forrige = null;            //  Nullstill
+            }
+
+        //  Hvis metoden skal fjerne det siste elementet
+        } else if (verdi.equals(hale.verdi)) {
+            hale = hale.forrige;                //  Flytte hale til forrige verdi
+            hale.neste = null;                  //  Nullstill
+
+        //  Hvis metoden skal fjerne en verdi mellom det første og siste elementet
+        } else {
+            p.forrige.neste = p.neste;
+            p.neste.forrige = p.forrige;
+        }
+        endringer++;
+        antall--;
+        return true;
     }
 
     //  Oppgave 6
     //  Relevant kode befinner seg i 3.3.3 b)
-
     @Override
     public T fjern(int indeks) {
         //  Ulovlig hvis oppgitt indeks er lik antall
@@ -326,20 +331,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //  Hjelpevariabler
         Node <T> p = finnNode(indeks);
 
-        //  Hvis den første elementet skal fjernes
-        if (indeks == 0) {
+        //  Hvis listen har bare ett element
+        if (antall == 1) {
+            hode = null;                        //  Nullstill
+            hale = null;                        //  Nullstill
+
+        //  Hvis det første elementet skal fjernes
+        } else if (indeks == 0) {
             hode = hode.neste;                  //  Flytte hode til neste verdi
             hode.forrige = null;                //  Nullstill
 
-        //  Hvis den siste elementet skal fjernes
-        } else if (indeks == antall - 1) {
+        //  Hvis det siste elementet skal fjernes
+        } else if (p == hale) {
             hale = hale.forrige;                //  Flytte hale til forrige verdi
             hale.neste = null;                  //  Nullstill
 
-        //  Hvis en element mellom første og siste skal fjernes
+        //  Hvis et element mellom første og siste skal fjernes
         } else {
-            p.forrige.neste = p.neste;          //  Flytte verdien til neste verdi
-            p.neste.forrige = p.forrige;        //  Flytte verdien til forrige verdi
+            p.forrige.neste = p.neste;          //  Flytte pekeren til neste verdi
+            p.neste.forrige = p.forrige;        //  Flytte pekeren til forrige verdi
         }
         endringer++;
         antall--;
