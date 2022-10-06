@@ -437,7 +437,11 @@ public static Integer[] random(Integer[] a)  // stokker om a
 
         // Oppgave 8c)
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            /*throw new UnsupportedOperationException();*/
+
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
         @Override
