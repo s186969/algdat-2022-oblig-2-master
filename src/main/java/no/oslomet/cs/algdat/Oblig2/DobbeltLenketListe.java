@@ -275,7 +275,44 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 6
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        //  Hvis "verdi" ikke er i listen, returnerer metoden false
+        if (verdi == null) {
+            return false;
+        }
+
+        //Hjelpevariabler
+        Node <T> p = hode;
+
+        for (int i = 0; i < antall - 1; i++) {
+            //  Hvis metoden skal fjerne det første elemenetet
+            if (verdi.equals(hode.verdi)) {
+
+                //  Hvis listen har bare ett element
+                if (hode.neste == null) {
+                    hode = null;                    //  Nullstill
+                    hale = null;                    //  Nullstill
+
+                //  Hvis listen har mer enn ett element
+                } else {
+                    hode = hode.neste;              //  Flytte hode til neste verdi
+                    hode.forrige = null;            //  Nullstill
+                }
+
+            //  Hvis metoden skal fjerne det siste elementet
+            } else if (verdi.equals(hale.verdi)) {
+                hale = hale.forrige;                //  Flytte hale til forrige verdi
+                hale.neste = null;                  //  Nullstill
+
+            //  Hvis metoden skal fjerne en verdi mellom det første og siste elementet
+            } else {
+                p.forrige.neste = p.neste;
+                p.neste.forrige = p.forrige;
+            }
+            endringer++;
+            antall--;
+            return true;
+        }
+        return false;
     }
 
     //  Oppgave 6
@@ -287,26 +324,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, false);
 
         //  Hjelpevariabler
-        Node <T> p;
-        Node <T> q = finnNode(indeks - 1);
+        Node <T> p = finnNode(indeks);
 
         //  Hvis den første elementet skal fjernes
         if (indeks == 0) {
-            p = hode;                           //  Temp-verdi
             hode = hode.neste;                  //  Flytte hode til neste verdi
             hode.forrige = null;                //  Nullstill
 
         //  Hvis den siste elementet skal fjernes
         } else if (indeks == antall - 1) {
-            p = hale;                           //  Temp-verdi
             hale = hale.forrige;                //  Flytte hale til forrige verdi
             hale.neste = null;                  //  Nullstill
 
         //  Hvis en element mellom første og siste skal fjernes
         } else {
-            p = q.neste;
-            q.neste = q.neste.neste;
-            q.neste.forrige = q;
+            p.forrige.neste = p.neste;          //  Flytte verdien til neste verdi
+            p.neste.forrige = p.forrige;        //  Flytte verdien til forrige verdi
         }
         endringer++;
         antall--;
