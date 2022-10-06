@@ -386,9 +386,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 8 b)
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
+    //Oppgave 8d)
     public Iterator<T> iterator(int indeks) {
         throw new UnsupportedOperationException();
     }
@@ -406,6 +407,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             iteratorendringer = endringer;  // teller endringer
         }
 
+        // Oppgave 8c)
         private DobbeltLenketListeIterator(int indeks) {
             throw new UnsupportedOperationException();
         }
@@ -415,9 +417,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return denne != null;
         }
 
+        // Oppgave 8a)
         @Override
-        public T next() {
-            throw new UnsupportedOperationException();
+        public T next()
+        {
+            // Programkode 3.2.5e)
+            if (iteratorendringer != endringer) {
+                throw new ConcurrentModificationException("Listen er endret!");
+            }
+
+            // Programkode 3.3.4c)
+            if (!hasNext()) throw new NoSuchElementException("Ingen verdier!");
+
+            fjernOK = true; // nå kan remove() kalles
+            T denneVerdi = denne.verdi; // tar vare på verdien i denne
+            denne = denne.neste; // flytter denne til den neste noden
+            return denneVerdi; // returnerer verdien
+            
         }
         //Opggave 9
         @Override
