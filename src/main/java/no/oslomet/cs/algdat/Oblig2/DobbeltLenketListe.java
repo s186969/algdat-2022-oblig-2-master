@@ -398,6 +398,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println("***********OPPGAVE 2 SLUTTER HER***********");
         //***********OPPGAVE 2 SLUTTER HER***********
 
+        //*********Oppgave 4**************
+        Integer[] liste40 = {45, 35, 764, 3, 6};
+        DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
+        System.out.println(liste41);
+        System.out.println(liste41.indeksTil(6));
+
     }
 
 } // class DobbeltLenketListe
