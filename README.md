@@ -13,7 +13,7 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Kristin har hatt hovedansvar for oppgave...
 * Alex har hatt hovedansvar for oppgave 3 og 6
 * Lelia har hatt hovedansvar for oppgave 2, 7 og 10.
-* Knut har hatt hovedansvar for oppgave...
+* Knut har hatt hovedansvar for oppgave 4 og 8.
 
 # Oppgavebeskrivelse
 
