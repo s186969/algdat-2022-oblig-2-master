@@ -66,7 +66,33 @@ Tilslutt returnerer metoden listen.
 ...
 
 <h3>Oppgave 6</h3>
-...
+<p>Besvarelsen vil gjøre rede for metodene T fjern(int indeks) og boolean fjern(T verdi).</p>
+
+<p>I T fjern(int indeks) har besvarelsen hentet inspirasjon fra programkode 3.3.3.b). Metoden starter først å 
+undersøke om hvorvidt verdien i «indeks» som er lik «antall, der det ikke er tillatt. Videre har det blitt 
+lagt inn fire if-setninger for å slette etterspurt element.
+</p>
+
+<p>Den første setningen sjekker om det finnes bare ett element og setter hode og hale til null.</p>
+<div style="text-align: center"><img src="img/img.png"></div>
+
+<p>Den andre setningen sjekker om oppgitt «indeks» er 0, også kjent som «hode». Videre sier denne setningen 
+at neste verdi skal være den nye «hode» før den setter null-verdi på den opprinnelige «hode».
+</p>
+<div style="text-align: center"><img src="img/img_1.png"></div>
+
+<p>Den tredje setningen sjekker om oppgitt «indeks» er «hale». Deretter setter den forrige verdi til den 
+nye «hale» og setter null-verdi på den opprinnelige «hale».
+</p>
+<div style="text-align: center"><img src="img/img_2.png"></div>
+
+<p>Ellers vil den siste setningen dirigere pekerne forbi det oppgitte elementet.</p>
+<div style="text-align: center"><img src="img/img_3.png"></div>
+
+<p>Metoden avslutter ved å øke «endringer» og redusere «antall» med henholdsvis med en og returnerer tilslutt 
+verdien til oppgitt «indeks».
+</p>
+
 
 <h3>Oppgave 7</h3>
 ...
