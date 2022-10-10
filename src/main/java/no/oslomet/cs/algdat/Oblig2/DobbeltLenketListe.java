@@ -297,24 +297,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             //  Hvis listen har bare ett element
             if (hode.neste == null) {
-                hode = null;                    //  Nullstill
-                hale = null;                    //  Nullstill
+                hode = null;                    //  Null-verdi
+                hale = null;                    //  Null-verdi
 
             //  Hvis listen har mer enn ett element
             } else {
                 hode = hode.neste;              //  Flytte hode til neste verdi
-                hode.forrige = null;            //  Nullstill
+                hode.forrige = null;            //  Null-verdi
             }
 
         //  Hvis metoden skal fjerne det siste elementet
         } else if (verdi.equals(hale.verdi)) {
             hale = hale.forrige;                //  Flytte hale til forrige verdi
-            hale.neste = null;                  //  Nullstill
+            hale.neste = null;                  //  Null-verdi
 
         //  Hvis metoden skal fjerne en verdi mellom det første og siste elementet
         } else {
-            p.forrige.neste = p.neste;
-            p.neste.forrige = p.forrige;
+            p.forrige.neste = p.neste;          //  Dirigere pekeren til neste verdi
+            p.neste.forrige = p.forrige;        //  Dirigere pekeren til forrige verdi
         }
         endringer++;
         antall--;
@@ -333,23 +333,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //  Hvis listen har bare ett element
         if (antall == 1) {
-            hode = null;                        //  Nullstill
-            hale = null;                        //  Nullstill
+            hode = null;                        //  Null-verdi
+            hale = null;                        //  Null-verdi
 
         //  Hvis det første elementet skal fjernes
         } else if (indeks == 0) {
             hode = hode.neste;                  //  Flytte hode til neste verdi
-            hode.forrige = null;                //  Nullstill
+            hode.forrige = null;                //  Null-verdi
 
         //  Hvis det siste elementet skal fjernes
         } else if (p == hale) {
             hale = hale.forrige;                //  Flytte hale til forrige verdi
-            hale.neste = null;                  //  Nullstill
+            hale.neste = null;                  //  Null-verdi
 
         //  Hvis et element mellom første og siste skal fjernes
         } else {
-            p.forrige.neste = p.neste;          //  Flytte pekeren til neste verdi
-            p.neste.forrige = p.forrige;        //  Flytte pekeren til forrige verdi
+            p.forrige.neste = p.neste;          //  Dirigere pekeren til neste verdi
+            p.neste.forrige = p.forrige;        //  Dirigere pekeren til forrige verdi
         }
         endringer++;
         antall--;
