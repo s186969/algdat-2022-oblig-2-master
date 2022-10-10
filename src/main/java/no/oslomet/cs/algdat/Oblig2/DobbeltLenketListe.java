@@ -467,7 +467,8 @@ public static Integer[] random(Integer[] a) {
 
     //Oppgave 8d)
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     //Metoden boolean  hasNext() og konstruktøren public  DobbeltLenketListeIterator() i
@@ -478,6 +479,7 @@ public static Integer[] random(Integer[] a) {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
+            //Programkode 3.3.4 a) ++
             denne = hode;     // p starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
@@ -485,8 +487,6 @@ public static Integer[] random(Integer[] a) {
 
         // Oppgave 8c)
         private DobbeltLenketListeIterator(int indeks) {
-            /*throw new UnsupportedOperationException();*/
-
             denne = finnNode(indeks);
             fjernOK = false;
             iteratorendringer = endringer;
@@ -657,10 +657,20 @@ public static Integer[] random(Integer[] a) {
 
  */
         //*********Oppgave 4**************
+        System.out.println("Oppgave 4:");
         Integer[] liste40 = {45, 35, 764, 3, 6};
         DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
         System.out.println(liste41);
         System.out.println(liste41.indeksTil(6));
+
+        //*********Oppgave 8d **************
+        System.out.println("Oppgave 8:");
+        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+        Liste<String> liste = new DobbeltLenketListe<>(navn);
+        liste.forEach(s -> System.out.print(s + " "));
+        System.out.println();
+        for (String s : liste) System.out.print(s + " ");
+
 
     }
 
