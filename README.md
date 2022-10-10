@@ -27,7 +27,6 @@ nye noder for hver verdi i lista som er ulik null. For hver node som legges til 
 Siden nodene legges til på slutten er det kun pekerne i forbindelse med halen som endres. 
 Til slutt sjekker jeg at det faktisk har blitt lagt til noen noder, og endrer hode-pekeren til å være første element
 heller enn null, fordi hode ble definert som null fra standardkonstruktøren. </p>
-<p>Det kommer opp warning om at vi kan bruke enhanced for-loop her, noe jeg har valgt å overse i dette tilfellet.</p>
 
 <h3>Oppgave 2</h3>
 VIKTIG NOTAT FOR OPPGAVE 2:
@@ -131,7 +130,6 @@ Vi gikk frem ved å:</p>
 ...
 
 <h3>Oppgave 9</h3>
-<p>I denne oppgaven skal metoden remove() i iteratoren kodes.</p>
 <p>
 Det skal kun være mulig å kalle på metoden remove() etter at man har gjort kall på next(). 
 Dette betyr at det er noden rett til venstre for "denne" som skal slettes. Når en node skal slettes må man passe på at det 
@@ -139,7 +137,7 @@ ikke er noen pekere som peker på noden, da vil "java garbage collector" slette 
 </p>
 <p>
 For tilfellet hvor man skal slette en node i midten av listen, kan man endre alle pekerne slik som i oppgave 5, slik at ingen 
-pekere peker på noden som skal slettes.
+pekere peker på noden i midten.
 </p>
 <p>
 Hvis denne.forrige == hode betyr det at vi skal slette hode. Vi må passe på at hode.neste settes til å være hode, og 

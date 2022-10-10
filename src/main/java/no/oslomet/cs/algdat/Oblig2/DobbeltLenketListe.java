@@ -43,14 +43,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 1
     public DobbeltLenketListe(T[] a) {
-        new DobbeltLenketListe<T>(); //oppretter et objekt med  standardkonstruktøren
+        new DobbeltLenketListe(); //oppretter et objekt med  standardkonstruktøren
         Objects.requireNonNull(a,"Tabellen a er null!"); //sjekker om tabellen er null
         this.hode = new Node<>(null); //oppretter først hale/hode som utgangspunkt for å bygge videre
         this.hale = hode;
 
         for(int i=0;i<a.length;i++) { //fylle på en node så lenge verdien i arrayet ikke er null, hopper over null-verdier
             if (a[i] != null) {
-                hale.neste = new Node<>(a[i], hale, null);
+                hale.neste = new Node(a[i], hale, null);
                 hale = hale.neste;
                 antall++;
             }
@@ -97,7 +97,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //oppgave 1
     @Override
     public boolean tom() { //returnerer true hvis listen er tom
-        return antall == 0;
+        if(antall == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
     //Oppgave 2b)
 
@@ -146,7 +150,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //1) listen er tom,
         if (tom()) {
-            Node<T> p = new Node<>(verdi);
+            Node<T> p = new Node<T>(verdi);
             hode = hale = p;
             p.forrige = null;
             p.neste = null;
@@ -154,7 +158,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         //2) verdien skal legges først,
         else if (indeks == 0) {
-            Node<T> p = new Node<>(verdi);
+            Node<T> p = new Node<T>(verdi);
             p.forrige = null;
             p.neste = hode;
             hode.forrige = p;
@@ -170,7 +174,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //den siste noden være null.*/
         else {
             Node<T> q = finnNode(indeks);
-            Node<T> p = new Node<>(verdi);
+            Node<T> p = new Node<T>(verdi);
             Node<T> r = finnNode(indeks - 1);
             p.neste = q;
             p.forrige = r;
@@ -520,7 +524,7 @@ public static Integer[] random(Integer[] a) {
                 hode = denne.forrige.neste;
                 hode.forrige= null;
             } else{                     //en node i midten av lista skal fjernes
-                Node<T> p = denne.forrige;
+                Node p = denne.forrige;
                 p.forrige.neste = p.neste;
                 p.neste.forrige = p.forrige;
             }
