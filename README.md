@@ -104,7 +104,7 @@ verdien til oppgitt «indeks».
 <p>I boolean fjern(T verdi) er if-setningene inspirert fra forrige metode, T fjern(int indeks). De store 
 forskjellene er at den ikke lar «verdi» være null og at den har en while-løkke som fjerner den første 
 forekomsten hvis listen skulle inneholde identiske verdier. I stedet for en verdi, returnerer denne metoden 
-om hvorvidt oppgitt «verdi» er true eller false. 
+om hvorvidt oppgitt «verdi» er true eller false avhengig av if-setningene. 
 </p>
 
 <h3>Oppgave 7</h3>
