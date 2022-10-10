@@ -43,9 +43,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 1
     public DobbeltLenketListe(T[] a) {
-        new DobbeltLenketListe(); //oppretter et objekt med konstruktøren
+        new DobbeltLenketListe(); //oppretter et objekt med  standardkonstruktøren
         Objects.requireNonNull(a,"Tabellen a er null!"); //sjekker om tabellen er null
-        this.hode = new Node<>(null); //oppretter hale/hode som utgangspunkt for å bygge videre
+        this.hode = new Node<>(null); //oppretter først hale/hode som utgangspunkt for å bygge videre
         this.hale = hode;
 
         for(int i=0;i<a.length;i++) { //fylle på en node så lenge verdien i arrayet ikke er null, hopper over null-verdier
@@ -55,7 +55,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall++;
             }
         }
-        if(antall == 0){ //hvis antallet noder fortsatt er 0 må hode = hale, som er null
+        if(antall == 0){ //hvis antallet noder fortsatt er 0, må hode = hale, som er null
             hode = hale;
         } else{
             hode = hode.neste; //hvis det er bygget på noder må vi sørge for at hode ikke lengre er null-verdien
@@ -93,10 +93,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int antall() {
         return antall;
-    }
+    } //returnerer antall noder
     //oppgave 1
     @Override
-    public boolean tom() {
+    public boolean tom() { //returnerer true hvis listen er tom
         if(antall == 0){
             return true;
         } else {
@@ -513,17 +513,17 @@ public static Integer[] random(Integer[] a) {
                 throw new ConcurrentModificationException("Endringer er ulik iteratorendringer");
             }
             fjernOK = false;
-            if(antall == 1){
+            if(antall == 1){ //er kun en node i lista
                 hode=hale=null;
             }
-            else if(denne == null){
+            else if(denne == null){ //siden lista ikke inneholder null-verdier, må vi nå ha kommet til slutten, vi er til høyre for halen og skal slette halen
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if(denne.forrige == hode){
+            else if(denne.forrige == hode){ //hode skal fjernes
                 hode = denne.forrige.neste;
                 hode.forrige= null;
-            } else{
+            } else{                     //en node i midten av lista skal fjernes
                 Node p = denne.forrige;
                 p.forrige.neste = p.neste;
                 p.neste.forrige = p.forrige;
