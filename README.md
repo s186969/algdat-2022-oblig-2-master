@@ -24,20 +24,40 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 ...
 
 <h3>Oppgave 3</h3>
-Besvarelsen vil begynne med å gjøre rede for oppgave 3a).
+<p>Besvarelsen vil begynne med å gjøre rede for oppgave 3a).</p>
 
-I finnNode(int indeks) starter metoden med å lete etter en node ved hjelp av en if-setning. Dersom «indeks» er mindre enn («antall» / 2), vil metoden gå gjennom en for-løkke som øker «hode» til neste verdi. Dersom «indeks» er større enn («antall» / 2), for-løkken starte fra «hale» og minske til forrige verdi.
+<p>I finnNode(int indeks) starter metoden med å lete etter en node ved hjelp av en if-setning. Dersom 
+«indeks» er mindre enn («antall» / 2), vil metoden gå gjennom en for-løkke som øker «hode» til neste 
+verdi. Dersom «indeks» er større enn («antall» / 2), for-løkken starte fra «hale» og minske til forrige 
+verdi.
+</p>
 
-I hent(int indeks) har besvarelsen hentet fra kompendiet i programkode 3.3.3.a). Denne metoden kontrollerer først om hvorvidt «indeks» er gyldig. Ettersom det er oppgitt false, innebærer det at det ikke er gyldig å oppgi «indeks» skal være lik «antall». Tilslutt returnerer den verdien som kommer fra finnNode(int indeks).
+<p>I hent(int indeks) har besvarelsen hentet fra kompendiet i programkode 3.3.3.a). Denne metoden 
+kontrollerer først om hvorvidt «indeks» er gyldig. Ettersom det er oppgitt false, innebærer det at 
+det ikke er gyldig å oppgi «indeks» skal være lik «antall». Tilslutt returnerer den verdien som kommer 
+fra finnNode(int indeks).
+</p>
 
-I oppdater(int  indeks,  T  nyverdi) begynner metoden med å sjekke om det er oppgitt null-verdier som ikke er tillatt. Det er også ikke tillatt å oppgi en verdi i «indeks» som er lik «antall». Deretter erstatter metoden verdien på «indeks» med «nyverdi» ved hjelp av hjelpevariabel. Tilslutt returnerer metoden den opprinnelige verdien.
+<p>I oppdater(int  indeks,  T  nyverdi) begynner metoden med å sjekke om det er oppgitt null-verdier som 
+ikke er tillatt. Det er også ikke tillatt å oppgi en verdi i «indeks» som er lik «antall». Deretter 
+erstatter metoden verdien på «indeks» med «nyverdi» ved hjelp av hjelpevariabel. Tilslutt returnerer 
+metoden den opprinnelige verdien.'
+</p>
 
-Herunder vil besvarelsen gjøre rede for oppgave 3b).
+<p>Herunder vil besvarelsen gjøre rede for oppgave 3b).</p>
 
-Besvarelsen har hentet metoden fratilKontroll() fra kompendiet i 1.2.3  «Feil og unntak». Denne metoden sørger for at tabellintervallet a[fra:til> (fra og med «fra», til men ikke med «til») er lovlig. Det gjøres oppmerksom på at oppgaveteksten skriver at at ArrayIndexOutOfBoundsException skal byttes med IndexOutOfBoundsException. I følge testen som var vedlagt i den obligatoriske oppgaven, ville testen ikke godkjenne IndexOutOfBoundsException i den siste if-setningen. Besvarelsen har derfor valgt å følge testen som ønsket å bytte ArrayIndexOutOfBoundsException med IllegalArgumentException.
+<p>Besvarelsen har hentet metoden fratilKontroll() fra kompendiet i 1.2.3  «Feil og unntak». Denne metoden 
+sørger for at tabellintervallet a[fra:til> (fra og med «fra», til men ikke med «til») er lovlig. Det gjøres 
+oppmerksom på at oppgaveteksten skriver at at ArrayIndexOutOfBoundsException skal byttes med 
+IndexOutOfBoundsException. I følge testen som var vedlagt i den obligatoriske oppgaven, ville testen 
+ikke godkjenne IndexOutOfBoundsException i den siste if-setningen. Besvarelsen har derfor valgt å følge 
+testen som ønsket å bytte ArrayIndexOutOfBoundsException med IllegalArgumentException.
+</p>
 
-I subliste(int  fra,  int  til) starter metoden å bruke fratilKontroll() for å «indeks» fra og til er lovlige. Deretter lager metoden en liste ved hjelp av en for-løkke som tar inn verdiene i finnNode(fra).Tilslutt returnerer metoden listen.
-
+<p>I subliste(int  fra,  int  til) starter metoden å bruke fratilKontroll() for å «indeks» fra og til er 
+lovlige. Deretter lager metoden en liste ved hjelp av en for-løkke som tar inn verdiene i finnNode(fra).
+Tilslutt returnerer metoden listen.
+</p>
 
 <h3>Oppgave 4</h3>
 ...
