@@ -518,30 +518,30 @@ public static Integer[] random(Integer[] a) {
         //Opggave 9
         @Override
         public void remove() {
-            if(tom()){
+            if(!fjernOK){
                 throw new IllegalStateException("Kan ikke fjerne fra en tom liste!");
             }
-            else if (endringer != iteratorendringer){
+            if(endringer != iteratorendringer){
                 throw new ConcurrentModificationException("Endringer er ulik iteratorendringer");
             }
-            else {
-                fjernOK = false;
-            }
+            fjernOK = false;
             if(antall == 1){
-                hode = hale = null;
-            } else if (denne == null){
-                hale = null;
-                hale.forrige = hale;
+                hode=hale=null;
+            }
+            else if(denne == null){
+                hale = hale.forrige;
                 hale.neste = null;
-            } else if(denne.forrige == hode){
-                hode = null;
-                hode.neste = hode;
-                hode.forrige = null;
+            }
+            else if(denne.forrige == hode){
+                hode = denne.forrige.neste;
+                hode.forrige= null;
             } else{
-                denne.forrige.forrige.neste = denne;
-                denne.forrige = denne.forrige.forrige;
+                Node p = denne.forrige;
+                p.forrige.neste = p.neste;
+                p.neste.forrige = p.forrige;
             }
             antall--;
+            endringer++;
             iteratorendringer++;
         }
 
