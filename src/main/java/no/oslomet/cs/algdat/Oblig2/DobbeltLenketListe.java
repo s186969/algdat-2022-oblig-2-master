@@ -366,8 +366,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> p = hode;
         Node <T> q;
 //Start i hode og gå mot hale ved hjelpe pekeren neste. For hver node «nulles»
-//nodeverdien og alle nodens pekere. Til slutt settes både hode og hale til null, antall til 0
-//og endringer økes.
+//nodeverdien og alle nodens pekere.
         while (p != null)
         {
             q = p.neste;
@@ -375,35 +374,37 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             p.verdi = null;
             p = q;
         }
-
+        //Til slutt settes både hode og hale til null, antall til 0
+        //og endringer økes.
         hode = hale = null;
         antall = 0;
         endringer ++;
 
         tid = System.currentTimeMillis() - tid;
         System.out.println("Oppgave 7 (test nulstill 1 og 2)");
-        System.out.println("Tid brukt (i millisekunder): " + tid);
+        System.out.println("Tid brukt (i millisekunder) for nullstill1: " + tid);
         //throw new UnsupportedOperationException();
     }
 //Nulstill 2. måte nulstill2.måte()? (Oppgave 7).
     //2. måte: Lag en løkke som inneholder metodekallet fjern(0) (den første noden fjernes) og
     //som går inntil listen er tom
 public void nullstill2() {
+    long tid2 = System.currentTimeMillis();
         //fjerner noder hvis de finns
         while(antall != 0){
             fjern(0);
         }
+    tid2 = System.currentTimeMillis() - tid2;
+    System.out.println("Oppgave 7 (test nulstill 1 og 2)");
+    System.out.println("Tid brukt (i millisekunder) for nullstil2: " + tid2);
 
 }
 
 //hjelpemetode til testing av nullstill metodene:
 // generer random integer arrays.
-public static Integer[] random(Integer[] a)  // stokker om a
-{
+public static Integer[] random(Integer[] a) {
     Random r = new Random();     // en randomgenerator
-
-    for (int k = a.length - 1; k >= 0; k--)
-    {
+    for (int k = a.length - 1; k >= 0; k--){
         int i = r.nextInt(k + 1);  // tilfeldig tall fra [0,k]
         a[k]=i;
     }
@@ -420,11 +421,13 @@ public static Integer[] random(Integer[] a)  // stokker om a
         if (antall == 0) {
             return "[]";
         }else {
+            //bruker stringBuilder får å bygge strengen som skal returneres
             StringBuilder s = new StringBuilder();
             s.append("[");
             //starter å append verdier i listen fra starten (hode) mot sluten for alle nodene som inneholder verdier
             for (Node<T> n = hode; n != null; n = n.neste) {
                 s.append(n.verdi);
+                //så langt listen inneholder verdier, verdiene skal append til strengen.
                 if (n.neste != null) {
                     s.append(", ");
                 }
@@ -439,16 +442,18 @@ public static Integer[] random(Integer[] a)  // stokker om a
         if (antall == 0){
             return "[]"; //i hjelpemetoden er antall definert som antall noder i listen.
         } else {
+            //bruker stringBuilder får å bygge strengen som skal returneres
             StringBuilder s = new StringBuilder();
             s.append("[");
+            //starter å append verdier i listen fra slutten (hale) mot startern for alle nodene som inneholder verdier
             for (Node<T> n = hale; n != null; n = n.forrige) {
                 s.append(n.verdi);
+                //så langt listen inneholder verdier, verdiene skal append til strengen.
                 if (n.forrige != null) {
                     s.append(", ");
                 }
             }
             s.append(']');
-
             return s.toString();
         }
         // throw new UnsupportedOperationException();
@@ -541,30 +546,36 @@ public static Integer[] random(Integer[] a)  // stokker om a
         }
 
     } // class DobbeltLenketListeIterator
+
 // Oppgave 10
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
 
         // kode basert på oppgave 4 i 4.2.4
+        //finner antall noder i listen
         int n = liste.antall();
-
+        //så langt listen har noder, skal while løkken kjøres.
         while (n > 0){
+            //lager en itarator som itererer gjennom lista
             Iterator<T> iterator = liste.iterator();
-            T min = iterator.next();       // kandidat for å være den miste verdi
+            // setter en kandidat for minst vedri
+            T min = iterator.next();
             int index = 0;//start index
-
-            for (int i = 1; i < n; i++)
-            {
+            for (int i = 1; i < n; i++){
                 T verdi = iterator.next();
-                if (c.compare(verdi, min) < 0)
-                {
+                //sammenligner verdien som ble satt som minst verdi med neste verdi
+                //hvis verdi er mindre enn min (kandidaten til minst verdi),
+                // settes indeks lik i og min verdien oppdateres
+                if (c.compare(verdi, min) < 0){
                     index = i;
                     min = verdi; // fant en som var mindre
                 }
             }
-            liste.leggInn(liste.fjern(index)); // legges øverst på stakken
+            // kaller på leggInn metoden fra oppgave 2b) og legges i listen samme
+            //verdi som er returnert av fjern()metoden i oppgave 6.
+            liste.leggInn(liste.fjern(index));
+            //teller ned fram til det finns ingen flere noder slik at while løkken stopper
             n--;
         }
-
     }
 
 
@@ -611,14 +622,14 @@ public static Integer[] random(Integer[] a)  // stokker om a
         System.out.println("*********Oppgave 7**************");
         System.out.println("Testing oppgave 7 nulstill 1)");
 
-        Integer [] x = new Integer[180000];
+        Integer [] x = new Integer[40000000];
         Integer[] xi = random(x);
         //System.out.println(Arrays.toString(xi));
         DobbeltLenketListe<Integer> xl = new DobbeltLenketListe<>(xi);
         DobbeltLenketListe<Integer> x2 = new DobbeltLenketListe<>(xi);
         DobbeltLenketListe<Integer> x3 = new DobbeltLenketListe<>(xi);
        //System.out.println(xl);
-/*
+
         long tid1 = System.currentTimeMillis();
         xl.nullstill();
         tid1 = System.currentTimeMillis() - tid1;
@@ -632,19 +643,19 @@ public static Integer[] random(Integer[] a)  // stokker om a
         System.out.println("Tid brukt (i millisekunder) for nullstill2: " + tid2);
         System.out.println("***********OPPGAVE 7 SLUTTER HER***********");
 
- */
         //***********OPPGAVE 7 SLUTTER HER***********
 
         //*********Oppgave 10 **************
         System.out.println("*********Oppgave 10 Starter her **************");
 
-        long tid3 = System.currentTimeMillis();
-        sorter(x3,Comparator.naturalOrder());
+/*        sorter(x3,Comparator.naturalOrder());
         tid3 = System.currentTimeMillis() - tid3;
         System.out.println("Tid brukt (i millisekunder) for oppgave 10: " + tid3);
         System.out.println("***********OPPGAVE 10  SLUTTER HER***********");
         //***********OPPGAVE 10  SLUTTER HER***********
 
+
+ */
         //*********Oppgave 4**************
         Integer[] liste40 = {45, 35, 764, 3, 6};
         DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
