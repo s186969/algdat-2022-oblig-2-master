@@ -10,16 +10,15 @@ Oppgaven er levert av følgende studenter:
 # Arbeidsfordeling
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Kristin har hatt hovedansvar for oppgave 1, 5 og 9
+* Kristin har hatt hovedansvar for oppgave...
 * Alex har hatt hovedansvar for oppgave 3 og 6
 * Lelia har hatt hovedansvar for oppgave 2, 7 og 10.
-* Knut har hatt hovedansvar for oppgave
+* Knut har hatt hovedansvar for oppgave 4 og 8.
 
 # Oppgavebeskrivelse
 
 <h3>Oppgave 1</h3>
-Antallet noder endres i flere av metodene. "antall()" skal returnere antallet noder, som til enhver tid skal være oppdatert.
-
+...
 
 <h3>Oppgave 2</h3>
 VIKTIG NOTAT FOR OPPGAVE 2:
