@@ -12,7 +12,7 @@ Oppgaven er levert av følgende studenter:
 I oppgaven har vi hatt følgende arbeidsfordeling:
 * Kristin har hatt hovedansvar for oppgave...
 * Alex har hatt hovedansvar for oppgave 3 og 6
-* Lelia har hatt hovedansvar for oppgave... 
+* Lelia har hatt hovedansvar for oppgave 2, 7 og 10.
 * Knut har hatt hovedansvar for oppgave...
 
 # Oppgavebeskrivelse
@@ -21,7 +21,15 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 ...
 
 <h3>Oppgave 2</h3>
-...
+VIKTIG NOTAT FOR OPPGAVE 2:
+<p>Oppgaven er avhengig av at hele oppgave 1 er riktig, inkludert metoden tom() fra oppgave 1. Vi kastet bort en hel dag på å finne hvorfor oppgave 2 ikke besto testen. Det var ingenting feil i oppgave 2, feilen var i oppgaven 1 i tom() metode, selv om oppgave 1 besto testene.
+</p>
+<p>I oppgave 2 vi gikk frem ved å:</p>
+<p>a)	Lage metoden String toString(). Metoden tar in ingen parametre og returnerer en string med vedriene i listen eller en [] hvis listen er tom. Metoden bruker StringBuilder for å bygge strengen. Metoden starter fra hode, og så langt listen inneholder verdier, verdiene skal append til strengen.</p>
+<p>b)	Lage metoden String omvendtString(). Den ligner på metoden i punkt a, bare at i steded for å bygge strengen fra hode til hale, bygger strengen fra hale til hode og derfor returnerer en streng med verdier i omvendt rekkefølge enn verdiene i listen. Metoden starter fra hale, og så langt listen inneholder verdier, verdiene skal append til strengen.</p>
+<p>Vi teste begge metodene i en main metode som skal ikke leveres med oppgaven. </p>
+
+
 
 <h3>Oppgave 3</h3>
 <p>Besvarelsen vil begynne med å gjøre rede for oppgave 3a).</p>
@@ -95,7 +103,12 @@ verdien til oppgitt «indeks».
 
 
 <h3>Oppgave 7</h3>
-...
+Vi gikk frem ved å:</p>
+<p>    a)	Lage en void nullstill1() som skal «tømme» listen og nulle alt. Koden er basert på oppgave 2, Avsnitt 3.3.2. Metoden start i hode og gå mot hale med en while løkke og nulles nodene fram til aller er nullet ut. Til slutt settes både hode og hale til null, antall til 0 og endringer økes.</p>
+<p> b)	Lage en void nullstill2() metoden som inneholder en løkke som kaller på metoden fjern() som tar in en index fra oppgave 6 og som går gjennom listen med en while løkke, fram til listen er tom.</p>
+<p>Tidsmåling. Vi gjorde tidsmålinger på disse to metodene. For dette måtte vi lage en ny metode som generer random integer lister public static Integer[] random(Integer[] a)som blir transformert til DobbeltLenketListe. Begge metodene ble brukt på disse listene og vi fikk følgende resultater:
+    Ved små lister (1 000 000 noder), metoden nullstill2() er raskere (8 millisekunder) enn nullstill1() (28 millisekunder). Hvis antall noder økes stadig, blir nullstill1() raskere enn nullstill2(). Med 10 000 000 noder er metodene omtrent like: nullstill1() tar 68 millisekunder og nullstill2() 72 millisekunder.  Med 40 000 000 noder blir metoden nullstill1() bedre: 222 millisekunder vs. 248 millisekunder for nullstill2(). Derfor velger vi nullstill1().
+
 
 <h3>Oppgave 8</h3>
 ...
@@ -104,4 +117,11 @@ verdien til oppgitt «indeks».
 ...
 
 <h3>Oppgave 10</h3>
-...
+<p>
+Koden i denne oppgaven er basert på oppgave 4 i 4.2.4.</p>
+<p>Vi gikk frem ved å finner antall noder i listen og bruke dette for en while løkke som kjører så langt listen har fortsatt noder. Inni while løkken er det en indeks, en kandidat til minst verdi og en itarator som itererer gjennom lista i en for løkke. Med bruk av .comparator(), sammenligner verdien som ble satt som minst verdi med neste verdi i listen. Hvis neste verdi er mindre enn min (kandidaten til minst verdi), settes indeks lik i og min verdien oppdateres. Dette gjøres fram til alle nodene sjekkes. Til slutt kalles det leggInn(T verdi) metoden fra oppgave 2b) som legger inn den verdien som blir returnert med metoden fjern() fra oppgave 6.</p>
+
+<p>Tidsmålinger
+Samme som I oppgave 7, vi brukte dobbel lenket liste av integers for å teste tidsbruk med dette metoden. Dette ble kjørt i en main metoden som blir ikke leverte med oppgaven.
+Med en liste på 90 000 noder, brukte metoden 12462 millisekunder. Ved dobling av listen (180 0000 noder), brukte metoden 49993 millisekunder. Derfor kan vi konkludere at metoden har kvadratisk kompleksitet.
+
