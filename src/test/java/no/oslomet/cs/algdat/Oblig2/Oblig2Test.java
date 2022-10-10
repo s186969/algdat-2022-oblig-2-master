@@ -943,7 +943,6 @@ class Oblig2Test {
     //// Oppgave 7 ////////////////////////////
     @org.junit.jupiter.api.Test
     void oppgave7() {
-        long tid = System.currentTimeMillis();
         int antallFeil = 0;
 
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
@@ -976,8 +975,7 @@ class Oblig2Test {
         }
 
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 7");
-        tid = System.currentTimeMillis() - tid;
-        System.out.println("Tid oppgave 7a)" + tid);
+
     }
 
     //// Oppgave 8 ////////////////////////////
