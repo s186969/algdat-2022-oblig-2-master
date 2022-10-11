@@ -68,7 +68,8 @@ Tilslutt returnerer metoden listen.
 </p>
 
 <h3>Oppgave 4</h3>
-...
+<p> 
+</p>
 
 <h3>Oppgave 5</h3>
 ...
@@ -116,7 +117,15 @@ Vi gikk frem ved å:</p>
 
 
 <h3>Oppgave 8</h3>
-...
+I denne oppgaven jobber vi i og med en indre iteratorklasse, DobbeltLenketListeIterator.
+<p> a)  Her skal vi lage metoden T next(). Først håndterer vi to ulike unntakstilfeller, om iteratorendringer er ulikt endringer. 
+Dette for å se om det har skjedd noen endringer utenfor som forstyrrer iteratoren. Den håndterer tilfeller der vi har en node som
+inneholder en nullverdi. Hensikten med metoden er å flytte noden (denne) til neste (for å iterere), for så å returnere noden
+som vi var på.
+</p>
+<p> c)  Her lages en konstruktør som gir større fleksibilitet, da vi kan starte fra en bestemt indeks, og ikke nødvendigvis
+bare fra head.</p>
+<p> b) og d)    Nå er vi ute av den indre iterator-klassen, og her oppretter vi en instans av interatorklassen.</p>
 
 <h3>Oppgave 9</h3>
 ...

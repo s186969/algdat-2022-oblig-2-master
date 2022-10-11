@@ -459,7 +459,7 @@ public static Integer[] random(Integer[] a) {
         // throw new UnsupportedOperationException();
     }
 
-    //Oppgave 8 b)
+    //Oppgave 8b)
     @Override
     public Iterator<T> iterator() {
         return new DobbeltLenketListeIterator();
@@ -479,7 +479,6 @@ public static Integer[] random(Integer[] a) {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
-            //Programkode 3.3.4 a) ++
             denne = hode;     // p starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
