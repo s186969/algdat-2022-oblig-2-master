@@ -10,7 +10,7 @@ Oppgaven er levert av følgende studenter:
 # Arbeidsfordeling
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Kristin har hatt hovedansvar for oppgave...
+* Kristin har hatt hovedansvar for oppgave 1, 5 og 9
 * Alex har hatt hovedansvar for oppgave 3 og 6
 * Lelia har hatt hovedansvar for oppgave 2, 7 og 10.
 * Knut har hatt hovedansvar for oppgave 4 og 8.
@@ -18,7 +18,15 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 # Oppgavebeskrivelse
 
 <h3>Oppgave 1</h3>
-...
+<p>Antallet noder endres i flere av metodene. "antall()" skal kun returnere det til enhver tid oppdaterte antallet.
+Metoden "tom()" sjekker om antallet noder er 0, og returnerer i så fall true. Returnerer ellers false.</p>
+
+<p>Det er allerede kodet en standardkonstruktør. I konstruktøren som jeg har kodet, har jeg først brukt 
+standardkonstruktøren til å opprette et objekt av typen DobbeltLenketListe. Deretter oppretter jeg og legger til
+nye noder for hver verdi i lista som er ulik null. For hver node som legges til passer jeg på at pekerne endres. 
+Siden nodene legges til på slutten er det kun pekerne i forbindelse med halen som endres. 
+Til slutt sjekker jeg at det faktisk har blitt lagt til noen noder, og endrer hode-pekeren til å være første element
+heller enn null, fordi hode ble definert som null fra standardkonstruktøren. </p>
 
 <h3>Oppgave 2</h3>
 VIKTIG NOTAT FOR OPPGAVE 2:
@@ -72,7 +80,10 @@ Tilslutt returnerer metoden listen.
 </p>
 
 <h3>Oppgave 5</h3>
-...
+I denne oppgaven oppdaters pekerne slik som beskrevet i oppgaven med if, else if, og else tester. 
+Merk at jeg for tilfellet "indeks == antall" brukte metoden leggInn(). Denne metoden øker allerede antallet
+noder. Jeg måtte derfor passe på å trekke fra én på antallet i dette tilfellet, fordi jeg også øker antallet
+i slutten av metoden. 
 
 <h3>Oppgave 6</h3>
 <p>Besvarelsen vil gjøre rede for metodene T fjern(int indeks) og boolean fjern(T verdi).</p>
@@ -112,8 +123,9 @@ om hvorvidt oppgitt «verdi» er true eller false avhengig av if-setningene.
 Vi gikk frem ved å:</p>
 <p>    a)	Lage en void nullstill1() som skal «tømme» listen og nulle alt. Koden er basert på oppgave 2, Avsnitt 3.3.2. Metoden start i hode og gå mot hale med en while løkke og nulles nodene fram til aller er nullet ut. Til slutt settes både hode og hale til null, antall til 0 og endringer økes.</p>
 <p> b)	Lage en void nullstill2() metoden som inneholder en løkke som kaller på metoden fjern() som tar in en index fra oppgave 6 og som går gjennom listen med en while løkke, fram til listen er tom.</p>
-<p>Tidsmåling. Vi gjorde tidsmålinger på disse to metodene. For dette måtte vi lage en ny metode som generer random integer lister public static Integer[] random(Integer[] a)som blir transformert til DobbeltLenketListe. Begge metodene ble brukt på disse listene og vi fikk følgende resultater:
-    Ved små lister (1 000 000 noder), metoden nullstill2() er raskere (8 millisekunder) enn nullstill1() (28 millisekunder). Hvis antall noder økes stadig, blir nullstill1() raskere enn nullstill2(). Med 10 000 000 noder er metodene omtrent like: nullstill1() tar 68 millisekunder og nullstill2() 72 millisekunder.  Med 40 000 000 noder blir metoden nullstill1() bedre: 222 millisekunder vs. 248 millisekunder for nullstill2(). Derfor velger vi nullstill1().
+<p>Tidsmåling.Vi gjorde tidsmålinger på disse to metodene. For dette måtte vi lage en ny metode som generer random integer lister public static Integer[] random(Integer[] a)som blir transformert til DobbeltLenketListe. Begge metodene ble brukt på disse listene og vi fikk følgende resultater:</p>
+<p>Ved små lister (1 000 000 noder), metoden nullstill2() er raskere (8 millisekunder) enn nullstill1() (28 millisekunder). Hvis antall noder økes stadig, blir nullstill1() raskere enn nullstill2(). Med 10 000 000 noder er metodene omtrent like: nullstill1() tar 68 millisekunder og nullstill2() 72 millisekunder.  Med 40 000 000 noder blir metoden nullstill1() bedre: 222 millisekunder vs. 248 millisekunder for nullstill2(). Derfor velger vi nullstill1(). </p>
+<p>Det står to warnings på oppgave 7. Den første er at metode nullstill2() er ikke i bruk og den andre er at metode random()er ikke i bruk. Metode nullstill2() er nullstill metoden som er mindre effektiv, metoden random() ble brukt i tidsmålinger for oppgave 7 og 10.
 
 
 <h3>Oppgave 8</h3>
@@ -128,7 +140,24 @@ bare fra head.</p>
 <p> b) og d)    Nå er vi ute av den indre iterator-klassen, og her oppretter vi en instans av interatorklassen.</p>
 
 <h3>Oppgave 9</h3>
-...
+<p>
+Det skal kun være mulig å kalle på metoden remove() etter at man har gjort kall på next(). 
+Dette betyr at det er noden rett til venstre for "denne" som skal slettes. Når en node skal slettes må man passe på at det 
+ikke er noen pekere som peker på noden, da vil "java garbage collector" slette noden.
+</p>
+<p>
+For tilfellet hvor man skal slette en node i midten av listen, kan man endre alle pekerne slik som i oppgave 5, slik at ingen 
+pekere peker på noden i midten.
+</p>
+<p>
+Hvis denne.forrige == hode betyr det at vi skal slette hode. Vi må passe på at hode.neste settes til å være hode, og 
+hode.forrige må settes til null. 
+</p>
+<p>
+For tilfellet hvor denne == null har vi at denne.forrige er halen. Grunnen til dette er at listen vår per definisjon ikke skal
+inneholde noen null-verdier, så når vi kommer til en null-verdi er vi forbi halen. Vi skal da slette selve halen, og må passe på at 
+ny hale blir nest siste element med en neste-peker til null. 
+</p>
 
 <h3>Oppgave 10</h3>
 <p>

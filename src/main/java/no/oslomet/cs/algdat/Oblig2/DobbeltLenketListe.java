@@ -43,9 +43,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 1
     public DobbeltLenketListe(T[] a) {
-        new DobbeltLenketListe(); //oppretter et objekt med konstruktøren
+        new DobbeltLenketListe(); //oppretter et objekt med  standardkonstruktøren
         Objects.requireNonNull(a,"Tabellen a er null!"); //sjekker om tabellen er null
-        this.hode = new Node<>(null); //oppretter hale/hode som utgangspunkt for å bygge videre
+        this.hode = new Node<>(null); //oppretter først hale/hode som utgangspunkt for å bygge videre
         this.hale = hode;
 
         for(int i=0;i<a.length;i++) { //fylle på en node så lenge verdien i arrayet ikke er null, hopper over null-verdier
@@ -55,7 +55,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall++;
             }
         }
-        if(antall == 0){ //hvis antallet noder fortsatt er 0 må hode = hale, som er null
+        if(antall == 0){ //hvis antallet noder fortsatt er 0, må hode = hale, som er null
             hode = hale;
         } else{
             hode = hode.neste; //hvis det er bygget på noder må vi sørge for at hode ikke lengre er null-verdien
@@ -93,10 +93,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int antall() {
         return antall;
-    }
+    } //returnerer antall noder
     //oppgave 1
     @Override
-    public boolean tom() {
+    public boolean tom() { //returnerer true hvis listen er tom
         if(antall == 0){
             return true;
         } else {
@@ -362,7 +362,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 //«søppeltømmeren» kan hente alt som ikke lenger brukes.
     @Override
     public void nullstill() {
-        long tid = System.currentTimeMillis();
         Node<T> p = hode;
         Node <T> q;
 //Start i hode og gå mot hale ved hjelpe pekeren neste. For hver node «nulles»
@@ -379,25 +378,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode = hale = null;
         antall = 0;
         endringer ++;
-
-        tid = System.currentTimeMillis() - tid;
-        System.out.println("Oppgave 7 (test nulstill 1 og 2)");
-        System.out.println("Tid brukt (i millisekunder) for nullstill1: " + tid);
         //throw new UnsupportedOperationException();
     }
 //Nulstill 2. måte nulstill2.måte()? (Oppgave 7).
     //2. måte: Lag en løkke som inneholder metodekallet fjern(0) (den første noden fjernes) og
     //som går inntil listen er tom
 public void nullstill2() {
-    long tid2 = System.currentTimeMillis();
         //fjerner noder hvis de finns
         while(antall != 0){
             fjern(0);
         }
-    tid2 = System.currentTimeMillis() - tid2;
-    System.out.println("Oppgave 7 (test nulstill 1 og 2)");
-    System.out.println("Tid brukt (i millisekunder) for nullstil2: " + tid2);
-
 }
 
 //hjelpemetode til testing av nullstill metodene:
@@ -410,8 +400,6 @@ public static Integer[] random(Integer[] a) {
     }
     return a;
 }
-
-
 
     //Oppgave 2 a)1.
     @Override
@@ -524,17 +512,17 @@ public static Integer[] random(Integer[] a) {
                 throw new ConcurrentModificationException("Endringer er ulik iteratorendringer");
             }
             fjernOK = false;
-            if(antall == 1){
+            if(antall == 1){ //er kun en node i lista
                 hode=hale=null;
             }
-            else if(denne == null){
+            else if(denne == null){ //siden lista ikke inneholder null-verdier, må vi nå ha kommet til slutten, vi er til høyre for halen og skal slette halen
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if(denne.forrige == hode){
+            else if(denne.forrige == hode){ //hode skal fjernes
                 hode = denne.forrige.neste;
                 hode.forrige= null;
-            } else{
+            } else{                     //en node i midten av lista skal fjernes
                 Node p = denne.forrige;
                 p.forrige.neste = p.neste;
                 p.neste.forrige = p.forrige;
@@ -576,101 +564,4 @@ public static Integer[] random(Integer[] a) {
             n--;
         }
     }
-
-
-    public static void main(String[] args){
-        //Oppgave 1
-        //Liste<String> liste = new DobbeltLenketListe<>();
-        //System.out.println(liste.antall() + " " + liste.tom());
-        System.out.println();
-        // String[] s = {"Ole", null, "Per", "Kari", null};
-        // Liste<String> liste = new DobbeltLenketListe<>(s);
-        // System.out.println(liste.antall() + " " + liste.tom());
-
-        //*********Oppgave 2**************
-      /*  System.out.println("*********Oppgave 2**************");
-        System.out.println("Testing oppgave 2 a)");
-        String[] s1 = {}, s2 = {"A"}, s3 = {null,"A",null,"B",null}, s4 = {null, null, null, "Lars","Anders","Bodil","Kari","Per","Berit", null, "Birger","Lars","Anders","Bodil","Kari"};
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
-        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-        DobbeltLenketListe<String> l4 = new DobbeltLenketListe<>(s4);
-        System.out.println(l1.toString() + " " + l2.toString()
-                + " " + l3.toString() + " "+ l4.toString() + " " + l1.omvendtString() + " "
-                + l2.omvendtString() + " " + l3.omvendtString() + " " + l4.omvendtString());
-        // Utskrift: [] [A] [A, B] [] [A] [B, A]
-        System.out.println("Testing oppgave 2b)");
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.toString() + " " + liste.omvendtString());
-        for (int i = 1; i <= 3; i++) {
-            liste.leggInn(i);
-            System.out.println(liste.toString() + " " + liste.omvendtString());
-        }
-
-       */
-        // Utskrift:
-        // [] []
-        // [1] [1]
-        // [1, 2] [2, 1]
-        // [1, 2, 3] [3, 2, 1]
-        System.out.println("***********OPPGAVE 2 SLUTTER HER***********");
-        //***********OPPGAVE 2 SLUTTER HER***********
-
-
-        //*********Oppgave 7**************
-        System.out.println("*********Oppgave 7**************");
-        System.out.println("Testing oppgave 7 nulstill 1)");
-
-        Integer [] x = new Integer[40000000];
-        Integer[] xi = random(x);
-        //System.out.println(Arrays.toString(xi));
-        DobbeltLenketListe<Integer> xl = new DobbeltLenketListe<>(xi);
-        DobbeltLenketListe<Integer> x2 = new DobbeltLenketListe<>(xi);
-        DobbeltLenketListe<Integer> x3 = new DobbeltLenketListe<>(xi);
-       //System.out.println(xl);
-
-        long tid1 = System.currentTimeMillis();
-        xl.nullstill();
-        tid1 = System.currentTimeMillis() - tid1;
-        System.out.println("Tid brukt (i millisekunder) for nullstill1: " + tid1);
-
-
-        System.out.println("Testing oppgave 7 nulstill 2)");
-        long tid2 = System.currentTimeMillis();
-        x2.nullstill2();
-        tid2 = System.currentTimeMillis() - tid2;
-        System.out.println("Tid brukt (i millisekunder) for nullstill2: " + tid2);
-        System.out.println("***********OPPGAVE 7 SLUTTER HER***********");
-
-        //***********OPPGAVE 7 SLUTTER HER***********
-
-        //*********Oppgave 10 **************
-        System.out.println("*********Oppgave 10 Starter her **************");
-
-/*        sorter(x3,Comparator.naturalOrder());
-        tid3 = System.currentTimeMillis() - tid3;
-        System.out.println("Tid brukt (i millisekunder) for oppgave 10: " + tid3);
-        System.out.println("***********OPPGAVE 10  SLUTTER HER***********");
-        //***********OPPGAVE 10  SLUTTER HER***********
-
-
- */
-        //*********Oppgave 4**************
-        System.out.println("Oppgave 4:");
-        Integer[] liste40 = {45, 35, 764, 3, 6};
-        DobbeltLenketListe<Integer> liste41 = new DobbeltLenketListe<>(liste40);
-        System.out.println(liste41);
-        System.out.println(liste41.indeksTil(6));
-
-        //*********Oppgave 8d **************
-        System.out.println("Oppgave 8:");
-        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
-        Liste<String> liste = new DobbeltLenketListe<>(navn);
-        liste.forEach(s -> System.out.print(s + " "));
-        System.out.println();
-        for (String s : liste) System.out.print(s + " ");
-
-
-    }
-
 } // class DobbeltLenketListe
