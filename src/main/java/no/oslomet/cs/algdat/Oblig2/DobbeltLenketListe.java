@@ -186,6 +186,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //Oppgave 4
+    // Returnerer true hvis verdi er i listen, false hvis ikke
     @Override
     public boolean inneholder(T verdi)
     {
@@ -232,12 +233,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 4
     @Override
     public int indeksTil(T verdi) {
-/*        throw new UnsupportedOperationException();*/
 
         if (verdi == null) {
             return -1;
         }
 
+        // Itererer gjennom listen til vi finner (returnerer indeksen) eller ikke finner (returnerer -1) verdien
         Node<T> q = hode;
         int i = 0;
         for (; i < antall; i++) {
@@ -447,7 +448,7 @@ public static Integer[] random(Integer[] a) {
         // throw new UnsupportedOperationException();
     }
 
-    //Oppgave 8 b)
+    //Oppgave 8b)
     @Override
     public Iterator<T> iterator() {
         return new DobbeltLenketListeIterator();
@@ -467,14 +468,14 @@ public static Integer[] random(Integer[] a) {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
-            //Programkode 3.3.4 a) ++
-            denne = hode;     // p starter på den første i listen
+            denne = hode;     // denne starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
         // Oppgave 8c)
         private DobbeltLenketListeIterator(int indeks) {
+            // Tar inn en bestemt indeks som vi skal starte på
             denne = finnNode(indeks);
             fjernOK = false;
             iteratorendringer = endringer;

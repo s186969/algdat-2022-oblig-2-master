@@ -76,7 +76,12 @@ Tilslutt returnerer metoden listen.
 </p>
 
 <h3>Oppgave 4</h3>
-...
+<p>I denne oppgaven lager vi en metode, indeksTil, som returnerer indeksen til en node. Metoden tar inn en verdi som skal sjekkes. 
+Vi itererer her gjennom listen, hvis verdien og noden ikke er like, så går vi videre til neste node, og til slutt returnerer
+-1 hvis ikke det eksisterer der. Hvis det de er like så returnerer vi indeksen (i).
+</p>
+
+<p>Metoden "inneholder" returnerer true hvis den gitte verdien er i listen, false hvis ikke.</p>
 
 <h3>Oppgave 5</h3>
 I denne oppgaven oppdaters pekerne slik som beskrevet i oppgaven med if, else if, og else tester. 
