@@ -27,6 +27,7 @@ nye noder for hver verdi i lista som er ulik null. For hver node som legges til 
 Siden nodene legges til på slutten er det kun pekerne i forbindelse med halen som endres. 
 Til slutt sjekker jeg at det faktisk har blitt lagt til noen noder, og endrer hode-pekeren til å være første element
 heller enn null, fordi hode ble definert som null fra standardkonstruktøren. </p>
+<p>Det kommer opp warning om at vi kan bruke enhanced for-loop her, noe jeg har valgt å overse i dette tilfellet.</p>
 
 <h3>Oppgave 2</h3>
 VIKTIG NOTAT FOR OPPGAVE 2:
@@ -136,28 +137,29 @@ Vi gikk frem ved å:</p>
 ...
 
 <h3>Oppgave 9</h3>
+<p>I denne oppgaven skal metoden remove() i iteratoren kodes.</p>
 <p>
 Det skal kun være mulig å kalle på metoden remove() etter at man har gjort kall på next(). 
 Dette betyr at det er noden rett til venstre for "denne" som skal slettes. Når en node skal slettes må man passe på at det 
 ikke er noen pekere som peker på noden, da vil "java garbage collector" slette noden.
 </p>
 <p>
-For tilfellet hvor man skal slette en node i midten av listen, kan man endre alle pekerne slik som i oppgave 5, slik at ingen 
-pekere peker på noden i midten.
+For tilfellet hvor man skal slette en node et sted i midten av listen, kan man endre alle pekerne slik som i oppgave 5, slik at ingen 
+pekere peker på noden som skal slettes.
 </p>
 <p>
-Hvis denne.forrige == hode betyr det at vi skal slette hode. Vi må passe på at hode.neste settes til å være hode, og 
+Hvis "denne.forrige == hode" betyr det at vi skal slette hode. Vi må passe på at hode.neste settes til å være hode, og 
 hode.forrige må settes til null. 
 </p>
 <p>
-For tilfellet hvor denne == null har vi at denne.forrige er halen. Grunnen til dette er at listen vår per definisjon ikke skal
+For tilfellet hvor "denne == null" har vi at denne.forrige er halen. Grunnen til dette er at listen vår per definisjon ikke skal
 inneholde noen null-verdier, så når vi kommer til en null-verdi er vi forbi halen. Vi skal da slette selve halen, og må passe på at 
 ny hale blir nest siste element med en neste-peker til null. 
 </p>
 
 <h3>Oppgave 10</h3>
 <p>
-Koden i denne oppgaven er basert på oppgave 4 i 4.2.4.</p>
+Koden i denne oppgaven er basert på oppgave 4 i kompendiet, seksjon 4.2.4.</p>
 <p>Vi gikk frem ved å finner antall noder i listen og bruke dette for en while løkke som kjører så langt listen har fortsatt noder. Inni while løkken er det en indeks, en kandidat til minst verdi og en itarator som itererer gjennom lista i en for løkke. Med bruk av .comparator(), sammenligner verdien som ble satt som minst verdi med neste verdi i listen. Hvis neste verdi er mindre enn min (kandidaten til minst verdi), settes indeks lik i og min verdien oppdateres. Dette gjøres fram til alle nodene sjekkes. Til slutt kalles det leggInn(T verdi) metoden fra oppgave 2b) som legger inn den verdien som blir returnert med metoden fjern() fra oppgave 6.</p>
 
 <p>Tidsmålinger
